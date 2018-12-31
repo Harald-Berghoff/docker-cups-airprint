@@ -1,12 +1,14 @@
-FROM ubuntu:zesty
+# get the LTS version (we could also use latest tag)
+FROM ubuntu:bionic
 
 # Add repos
-RUN echo 'deb http://us.archive.ubuntu.com/ubuntu/ zesty multiverse' >> /etc/apt/sources.list.d/multiverse.list && \
-	echo 'deb-src http://us.archive.ubuntu.com/ubuntu/ zesty multiverse' >> /etc/apt/sources.list.d/multiverse.list && \
-	echo 'deb http://us.archive.ubuntu.com/ubuntu/ zesty-updates multiverse' >> /etc/apt/sources.list.d/multiverse.list && \
-	echo 'deb-src http://us.archive.ubuntu.com/ubuntu/ zesty-updates multiverse' >> /etc/apt/sources.list.d/multiverse.list && \
-	echo 'deb http://archive.ubuntu.com/ubuntu/ zesty-security multiverse' >> /etc/apt/sources.list.d/multiverse.list && \
-	echo 'deb-src http://archive.ubuntu.com/ubuntu/ zesty-security multiverse' >> /etc/apt/sources.list.d/multiverse.list
+# disabled, with bionic the repos should be enabled already with the base image.
+#RUN echo 'deb http://us.archive.ubuntu.com/ubuntu/ zesty multiverse' >> /etc/apt/sources.list.d/multiverse.list && \
+#	echo 'deb-src http://us.archive.ubuntu.com/ubuntu/ zesty multiverse' >> /etc/apt/sources.list.d/multiverse.list && \
+#	echo 'deb http://us.archive.ubuntu.com/ubuntu/ zesty-updates multiverse' >> /etc/apt/sources.list.d/multiverse.list && \
+#	echo 'deb-src http://us.archive.ubuntu.com/ubuntu/ zesty-updates multiverse' >> /etc/apt/sources.list.d/multiverse.list && \
+#	echo 'deb http://archive.ubuntu.com/ubuntu/ zesty-security multiverse' >> /etc/apt/sources.list.d/multiverse.list && \
+#	echo 'deb-src http://archive.ubuntu.com/ubuntu/ zesty-security multiverse' >> /etc/apt/sources.list.d/multiverse.list
 
 # Install the packages we need. Avahi will be included
 RUN apt-get update && apt-get install -y \

@@ -1,8 +1,12 @@
-# quadportnick/cups-airprint
+# Harald-Berghoff/ubuntu-cups-airprint
 
-This Ubuntu-based Docker image runs a CUPS instance that is meant as an AirPrint relay for printers that are already on the network but not AirPrint capable. I'm using it on a Synology NAS because the built in server doesn't work properly with my printers. The local Avahi will be utilized for advertising the printers on the network.
+(forked from [quadportnick/docker-cups-airprint][https://github.com/quadportnick/docker-cups-airprint])
 
-This is also an excuse to dip my toes into GitHub/Docker more, so why not? Hopefully someone else finds this useful.
+This Ubuntu-based Docker image runs a CUPS instance that is meant as an AirPrint relay for printers that are already on the network but not AirPrint capable. This build is fork from quadportnick/cups-airprint, who is using it on a Synology NAS because the built in server doesn't work properly with network printers. The local Avahi will be utilized for advertising the printers on the network.
+
+I am using a QNAP NAS, but with the very same restrictions, and I tried using his image, but found it rather outdated, so I updated it to a more recent ubuntu version, based on the version quadportnick has created. Right now I decided to go for Ubuntu 18.04, marked as a LTS release, supposedly having a EOL of April 2023.
+
+Hopefully someone else finds this useful. Credits go to quadportnick.
 
 ## Prereqs
 * No other printers should be shared under Control Panel>External Devices>Printer so that the DSM's CUPS is not running. 
@@ -22,7 +26,13 @@ This is also an excuse to dip my toes into GitHub/Docker more, so why not? Hopef
 * `631`: the TCP port for CUPS must be exposed
 
 ## Using
-CUPS will be configurable at http://[diskstation]:631 using the CUPSADMIN/CUPSPASSWORD when you do something administrative.
+To start the image either use the GUI of your NAS or use on the commandline:
+
+`docker run -p <<hostport>>:631 --env CUPSADMIN=<<adminuser>> --env CUPSPASSWORD=<<adminpwd>> ubuntu-cups-airprint:latest`
+
+It is recommended to use also port 631 as the hostport, as this is expected by some other software.
+
+CUPS will be configurable at http://[yourNAS]:<<hostport>>. using the CUPSADMIN/CUPSPASSWORD when you do something administrative.
 
 If the `/services` volume isn't mapping to `/etc/avahi/services` then you will have to manually copy the .service files to that path at the command line.
 
